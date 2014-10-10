@@ -57,6 +57,7 @@ class SiStripAPVRestorer {
   //template<typename T>float median( std::vector<T>& );
   //template<typename T>void IterativeMedian(std::vector<T>&, uint16_t); 
   
+  template<typename T >int16_t ForceAllInspect(const uint16_t&, std::vector<T>&);
   template<typename T >int16_t NullInspect(const uint16_t&, std::vector<T>&);
   template<typename T >int16_t AbnormalBaselineInspect(const uint16_t&, std::vector<T>&);
   template<typename T >int16_t BaselineFollowerInspect(const uint16_t&, std::vector<T>&);  
@@ -65,7 +66,9 @@ class SiStripAPVRestorer {
   void FlatRestore(const uint16_t&, const uint16_t&, std::vector<int16_t>& );
   bool CheckBaseline(const std::vector<int16_t> &) const;
   void BaselineFollowerRestore(const uint16_t&, const uint16_t&, const float&, std::vector<int16_t>& );
-  
+  void DerivativeFollowerRestore(const uint16_t&, const uint16_t&, std::vector<int16_t>& );
+    
+    
   void BaselineFollower(DigiMap&, std::vector<int16_t>&, const float&);
   bool FlatRegionsFinder(const std::vector<int16_t>&, DigiMap&, const uint16_t&);
 
@@ -136,7 +139,10 @@ class SiStripAPVRestorer {
   int32_t MeanCM_;
   double  filteredBaselineMax_;
   double filteredBaselineDerivativeSumSquare_;
-                    
+  int32_t discontinuityThreshold_; 
+  int32_t lastGradient_;
+  int32_t widthCluster_;
+  int32_t sizeWindow_;                 
 };
 
 #endif

@@ -29,6 +29,10 @@ DefaultAlgorithms = cms.PSet(
     Deviation = cms.uint32(25),              # " "
     restoreThreshold = cms.double(0.5),      # for Null inspect
     nSaturatedStrip = cms.uint32(2),         # for BaselineAndSaturation inspect
+    discontinuityThreshold = cms.int32(12),
+    lastGradient = cms.int32(10),
+    widthCluster = cms.int32(64),
+    sizeWindow = cms.int32(1),
 
     ## Supported restore modes: Flat, BaselineFollower, IterativeMedian
     APVRestoreMode = cms.string("BaselineFollower"),
