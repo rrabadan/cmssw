@@ -633,6 +633,7 @@ void SiStripMonitorCluster::analyze(const edm::Event& iEvent, const edm::EventSe
 	short cluster_width    = ampls.size();
 	// add nr of strips of this cluster to total nr. of clusterized strips
 	total_clusterized_strips = total_clusterized_strips + cluster_width;
+	modulecharge = modulecharge +  clusterIter->charge();
 
 	// cluster signal and noise from the amplitudes
 	float cluster_signal = 0.0;
