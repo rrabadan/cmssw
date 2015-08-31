@@ -126,7 +126,7 @@ private:
   std::string topFolderName_;
   
   //******* TkHistoMaps
-  TkHistoMap *tkhisto_StoNCorrOnTrack, *tkhisto_NumOnTrack, *tkhisto_NumOffTrack;  
+  TkHistoMap *tkhisto_StoNCorrOnTrack, *tkhisto_NumOnTrack, *tkhisto_NumOffTrack, *tkhisto_ChPerCMfromTrack, *tkhisto_ChPerCMfromOrigin, *tkhisto_ClusterCharge, *tkhisto_ChPerCMfromTrack2;  
   //******** TkHistoMaps
  
   struct ModMEs{  
@@ -193,7 +193,7 @@ private:
       struct RingMEs *iRing;
       struct SubDetMEs *iSubdet;
   };
-  
+
   edm::ESHandle<TrackerGeometry> tkgeom_;
   edm::ESHandle<SiStripDetCabling> SiStripDetCabling_;
   
@@ -216,6 +216,7 @@ private:
   std::string TrackLabel_;
 
   std::unordered_set<const SiStripCluster*> vPSiStripCluster;
+
   bool tracksCollection_in_EventTree;
   bool trackAssociatorCollection_in_EventTree;
   edm::EventNumber_t eventNb;

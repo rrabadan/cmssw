@@ -141,9 +141,13 @@ void SiStripMonitorTrack::book(DQMStore::IBooker & ibooker , const TrackerTopolo
   folder_organizer.setSiStripFolderName(topFolderName_);
   //******** TkHistoMaps
   if (TkHistoMap_On_) {
-    tkhisto_StoNCorrOnTrack = new TkHistoMap(ibooker , topFolderName_ ,"TkHMap_StoNCorrOnTrack",         0.0,true);
-    tkhisto_NumOnTrack      = new TkHistoMap(ibooker , topFolderName_, "TkHMap_NumberOfOnTrackCluster",  0.0,true);
-    tkhisto_NumOffTrack     = new TkHistoMap(ibooker , topFolderName_, "TkHMap_NumberOfOfffTrackCluster",0.0,true);
+    tkhisto_StoNCorrOnTrack   = new TkHistoMap(ibooker , topFolderName_ ,"TkHMap_StoNCorrOnTrack",         0.0,true);
+    tkhisto_NumOnTrack        = new TkHistoMap(ibooker , topFolderName_, "TkHMap_NumberOfOnTrackCluster",  0.0,true);
+    tkhisto_NumOffTrack       = new TkHistoMap(ibooker , topFolderName_, "TkHMap_NumberOfOfffTrackCluster",0.0,true);
+    tkhisto_NumOffTrack       = new TkHistoMap(ibooker , topFolderName_, "TkHMap_NumberOfOfffTrackCluster",0.0,true);
+    tkhisto_ChPerCMfromTrack  = new TkHistoMap(ibooker , topFolderName_, "TkHMap_ClusterChargePerCMfromTrack",0.0,true);
+    tkhisto_ChPerCMfromOrigin = new TkHistoMap(ibooker , topFolderName_, "TkHMap_ClusterChargePerCMfromOrigin",0.0,true);
+    //tkhisto_ChPerCMfromTrack2 = new TkHistoMap(ibooker , topFolderName_, "TkHMap_ClusterOnTrackChargePerCMfromTrack2",0.0,true);
   }
   //******** TkHistoMaps
 
@@ -1083,7 +1087,15 @@ void SiStripMonitorTrack::fillMEs(SiStripClusterInfo* cluster, const uint32_t de
   LocalPoint locVtx = DetUnit->toLocal(GlobalPoint(0.0, 0.0, 0.0));
   LocalVector locDir(locVtx.x(), locVtx.y(), locVtx.z());
   float dQdx_fromOrigin = siStripClusterTools::chargePerCM(detid, *cluster, locDir);
-  
+ 
+  if (TkHistoMap_On_) {
+    uint32_t adet=cluster->detId();
+    if (flag==OnTrack){
+      tkhisto_ChPerCMfromTrack->add(adet,dQdx_fromTrack);
+    }
+    tkhisto_ChPerCMfromOrigin->add(adet,dQdx_fromOrigin);
+  }  
+ 
   // layerMEs
   if (MEs.iLayer != nullptr) {
     if(flag==OnTrack){

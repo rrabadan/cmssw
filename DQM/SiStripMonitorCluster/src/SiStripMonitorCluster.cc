@@ -161,7 +161,7 @@ SiStripMonitorCluster::SiStripMonitorCluster(const edm::ParameterSet& iConfig)
   globalswitchnclusvscycletimeprof2don = ParametersNclusVsCycleTimeProf2D.getParameter<bool>("globalswitchon");
 
   clustertkhistomapon = conf_.getParameter<bool>("TkHistoMap_On");
-  meanclusterchtkhistomapon = conf_.getParameter<bool>("MeanChargeTkHistoMap_On");
+  clusterchtkhistomapon = conf_.getParameter<bool>("ChargeTkHistoMap_On");
   createTrendMEs = conf_.getParameter<bool>("CreateTrendMEs");
   trendVsLs_ = conf_.getParameter<bool>("TrendVsLS");
   Mod_On_ = conf_.getParameter<bool>("Mod_On");
@@ -252,10 +252,10 @@ void SiStripMonitorCluster::createMEs(const edm::EventSetup& es , DQMStore::IBoo
       else tkmapcluster = new TkHistoMap(ibooker , topFolderName_+"/TkHistoMap","TkHMap_NumberOfCluster",0.,false);
     }
 
-    if (meanclusterchtkhistomapon){
+    if (clusterchtkhistomapon){
       if ( (topFolderName_ == "SiStrip") or (std::string::npos != topFolderName_.find("HLT")) )
-        tkmapmeanclusterch = new TkHistoMap(ibooker , topFolderName_,"TkHMap_MeanClusterCharge",0.,true);
-      else tkmapmeanclusterch = new TkHistoMap(ibooker , topFolderName_+"/TkHistoMap","TkHMap_MeanClusterCharge",0.,false);
+        tkmapclustercharge = new TkHistoMap(ibooker , topFolderName_,"TkHMap_ClusterCharge",0.,true);
+      else tkmapclustercharge = new TkHistoMap(ibooker , topFolderName_+"/TkHistoMap","TkHMap_ClusterCharge",0.,false);
     }
 
     // loop over detectors and book MEs
@@ -592,7 +592,7 @@ void SiStripMonitorCluster::analyze(const edm::Event& iEvent, const edm::EventSe
 	  (mod_single.NumberOfClusters)->Fill(0.); // no clusters for this detector module,fill histogram with 0
 	}
 	if(clustertkhistomapon) tkmapcluster->fill(detid,0.);
-	if(meanclusterchtkhistomapon) tkmapmeanclusterch->fill(detid,0.);
+	if(clusterchtkhistomapon) tkmapclustercharge->fill(detid,0.);
         if (found_layer_me && layerswitchnumclusterprofon) layer_single.LayerNumberOfClusterProfile->Fill(iDet, 0.0);
 	continue; // no clusters for this detid => jump to next step of loop
       }
@@ -688,8 +688,8 @@ void SiStripMonitorCluster::analyze(const edm::Event& iEvent, const edm::EventSe
 	  }
       } // end loop over clusters
 
-      if(meanclusterchtkhistomapon) {
-        tkmapmeanclusterch->fill(detid,static_cast<float>(modulecharge/cluster_detset.size()));
+      if(clusterchtkhistomapon) {
+        tkmapclustercharge->fill(detid,static_cast<float>(modulecharge/*/cluster_detset.size()*/));
       }
 
       short total_nr_strips = SiStripDetCabling_->nApvPairs(detid) * 2 * 128; // get correct # of avp pairs

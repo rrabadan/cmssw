@@ -16,7 +16,7 @@ SiStripMonitorCluster = cms.EDAnalyzer("SiStripMonitorCluster",
 
     TkHistoMap_On = cms.bool(True),
                                      
-    MeanChargeTkHistoMap_On = cms.bool(True),
+    ChargeTkHistoMap_On = cms.bool(True),
    
     TopFolderName = cms.string('SiStrip'),
 
