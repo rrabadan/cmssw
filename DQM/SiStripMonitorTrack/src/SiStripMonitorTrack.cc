@@ -145,6 +145,9 @@ void SiStripMonitorTrack::book(DQMStore::IBooker & ibooker , const TrackerTopolo
     tkhisto_StoNCorrOnTrack = new TkHistoMap(ibooker , topFolderName_ ,"TkHMap_StoNCorrOnTrack",         0.0,true);
     tkhisto_NumOnTrack      = new TkHistoMap(ibooker , topFolderName_, "TkHMap_NumberOfOnTrackCluster",  0.0,true);
     tkhisto_NumOffTrack     = new TkHistoMap(ibooker , topFolderName_, "TkHMap_NumberOfOfffTrackCluster",0.0,true);
+    tkhisto_ClChPerCMfromTrack  = new TkHistoMap(ibooker , topFolderName_, "TkHMap_ChargePerCMfromTrack",0.0,true);
+    tkhisto_ClChPerCMfromOrigin = new TkHistoMap(ibooker , topFolderName_, "TkHMap_ChargePerCMfromOrigin",0.0,true);
+    tkhisto_NumMissingHits      = new TkHistoMap(ibooker , topFolderName_, "TkHMap_NumMissingHits",0.0,true);
   }
   //******** TkHistoMaps
 
@@ -596,6 +599,13 @@ void SiStripMonitorTrack::trajectoryStudy(const edm::Ref<std::vector<Trajectory>
 
     TrajectoryStateOnSurface  updatedtsos=traj_mes_iterator->updatedState();
     ConstRecHitPointer ttrh=traj_mes_iterator->recHit();
+
+    if (TkHistoMap_On_) {
+      uint32_t thedetid=ttrh->rawId();
+      if ( (ttrh->getType()==1) ){
+        if ( thedetid > 369120277-1 ) tkhisto_NumMissingHits->add(thedetid,1.);
+      }
+    }
 
     if (!ttrh->isValid()) continue;
 
@@ -1085,6 +1095,14 @@ void SiStripMonitorTrack::fillMEs(SiStripClusterInfo* cluster, const uint32_t de
   LocalVector locDir(locVtx.x(), locVtx.y(), locVtx.z());
   float dQdx_fromOrigin = siStripClusterTools::chargePerCM(detid, *cluster, locDir);
   
+  if (TkHistoMap_On_) {
+      uint32_t adet=cluster->detId();
+      if (flag==OnTrack){
+        tkhisto_ClChPerCMfromTrack->fill(adet,dQdx_fromTrack);
+      }
+      else tkhisto_ClChPerCMfromOrigin->fill(adet,dQdx_fromOrigin);
+  } 
+ 
   // layerMEs
   if (MEs.iLayer != nullptr) {
     if(flag==OnTrack){

@@ -126,7 +126,8 @@ private:
   std::string topFolderName_;
   
   //******* TkHistoMaps
-  TkHistoMap *tkhisto_StoNCorrOnTrack, *tkhisto_NumOnTrack, *tkhisto_NumOffTrack;  
+  TkHistoMap *tkhisto_StoNCorrOnTrack, *tkhisto_NumOnTrack, *tkhisto_NumOffTrack, *tkhisto_ClChPerCMfromTrack;  
+  TkHistoMap *tkhisto_ClChPerCMfromOrigin, *tkhisto_NumMissingHits;
   //******** TkHistoMaps
  
   struct ModMEs{  
