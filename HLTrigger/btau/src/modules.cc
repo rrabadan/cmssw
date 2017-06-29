@@ -18,6 +18,12 @@ DEFINE_FWK_MODULE(HLTDisplacedtktkFilter);
 #include "HLTDisplacedtktkVtxProducer.h"
 DEFINE_FWK_MODULE(HLTDisplacedtktkVtxProducer);
 
+#include "HLTDisplacedtktkV0VtxProducer.h"
+DEFINE_FWK_MODULE(HLTDisplacedtktkV0VtxProducer);
+
+#include "HLTDisplacedtktkV0Filter.h"
+DEFINE_FWK_MODULE(HLTDisplacedtktkV0Filter);
+
 #include "HLTDisplacedmumumuFilter.h"
 DEFINE_FWK_MODULE(HLTDisplacedmumumuFilter);
 
@@ -41,6 +47,9 @@ DEFINE_FWK_MODULE(HLTmumutktkVtxProducer);
 
 #include "HLTmumutktkFilter.h"
 DEFINE_FWK_MODULE(HLTmumutktkFilter);
+
+#include "HLTmumuV0Filter.h"
+DEFINE_FWK_MODULE(HLTmumuV0Filter);
 
 #include "ConeIsolation.h"
 DEFINE_FWK_MODULE(ConeIsolation);

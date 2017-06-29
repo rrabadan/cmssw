@@ -1,0 +1,28 @@
+#include "ntupleTree.h"
+#if defined(__CLING__) || defined(__CINT__)
+#pragma link off all globals;
+#pragma link off all classes;
+#pragma link off all functions;
+#pragma link C++ class ntupleEvent+;
+#pragma link C++ class GenParticleCand+;
+#pragma link C++ class BCand+;
+#pragma link C++ class L1MuonCand+;
+#pragma link C++ class HLTMuCand+;
+#pragma link C++ class HLTTkCand+;
+#pragma link C++ class HLTDimuonCand+;
+#pragma link C++ class HLTV0Cand+;
+#pragma link C++ class HLTMuMuVtxCand+;
+#pragma link C++ class HLTV0VtxCand+;
+#pragma link C++ class HLTObjCand+;
+#pragma link C++ class HLTInfo+;
+#pragma link C++ class std::vector<GenParticleCand>+;
+#pragma link C++ class std::vector<BCand>+;
+#pragma link C++ class std::vector<L1MuonCand>+;
+#pragma link C++ class std::vector<HLTMuCand>+;
+#pragma link C++ class std::vector<HLTTkCand>+;
+#pragma link C++ class std::vector<HLTDimuonCand>+;
+#pragma link C++ class std::vector<HLTV0Cand>+;
+#pragma link C++ class std::vector<HLTMuMuVtxCand>+;
+#pragma link C++ class std::vector<HLTV0VtxCand>+;
+#pragma link C++ class std::vector<HLTObjCand>+;
+#endif
