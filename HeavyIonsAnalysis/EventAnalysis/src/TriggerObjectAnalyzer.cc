@@ -165,7 +165,7 @@ TriggerObjectAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 	  for (unsigned int i=0; i!=n; ++i) {
 	    const trigger::TriggerObject& TO(TOC[KEYS[i]]);
 	    //This check prevents grabbing the L1 trigger object (VIDS < 0), and finds the max trigger pt within all trigger collections
-	    if(VIDS[i]>0){ // && pt<TO.pt()){
+	    //if(VIDS[i]>0){ // && pt<TO.pt()){
 	      if(verbose_){
 		cout << "   " << i << " " << VIDS[i] << "/" << KEYS[i] << ": "
 	                    << TO.id() << " " << TO.pt() << " " << TO.et() << " " << TO.eta() << " " << TO.phi() << " " << TO.mass()
@@ -176,7 +176,7 @@ TriggerObjectAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 	      eta[itrig].push_back(TO.eta());
 	      phi[itrig].push_back(TO.phi());
 	      mass[itrig].push_back(TO.mass());
-	    }
+	   // }
 	  }
 	}
       }
