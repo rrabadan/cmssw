@@ -76,7 +76,7 @@ triggerList    = {
         "hltL2fL1sL1DoubleMuOpenOSMAXdR2p0L1f0L2Filtered0",
         "hltL2fL1sL1DoubleMuOpenL1f0L2Filtered0",
         "hltL3fL1DoubleMuOpenL3Filtered0",
-        "hltL3fL1DoubleMuOpenL3FilteredM60120"
+        "hltL3fL1DoubleMuOpenL3FilteredM60120",
         "hltL3fL1DoubleMuOpenL3FilteredPsi",
         "hltL3fL1DoubleMuOpenL3FilteredUpsi",
         "hltL3f0L3Mu0L2Mu0Filtered0",
