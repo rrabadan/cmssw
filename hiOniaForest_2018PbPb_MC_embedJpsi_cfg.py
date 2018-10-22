@@ -133,6 +133,34 @@ process.hltObjectAna = cms.EndPath(process.hltobject)
 
 #----------------------------------------------------------------------------
 
+process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")
+process.GlobalTag.toGet = cms.VPSet(
+    cms.PSet(
+      record = cms.string("HeavyIonRcd"),
+      tag = cms.string("CentralityTable_HFtowers200_HydjetDrum5F_v1020x01_mc"),
+      connect = cms.string("frontier://FrontierProd/CMS_CONDITIONS"),
+      label = cms.untracked.string("HFtowers")
+      )
+    )
+
+### For Centrality
+process.load('RecoHI.HiCentralityAlgos.HiCentrality_cfi')
+process.centralityBin.Centrality = cms.InputTag("hiCentrality")
+process.centralityBin.centralityVariable = cms.string("HFtowers")
+process.centralityBin.nonDefaultGlauberModel = cms.string("")
+
+process.EventAna_step = cms.Path( process.centralityBin )
+
+
+process.hionia.CentralitySrc    = cms.InputTag("hiCentrality")
+process.hionia.CentralityBinSrc = cms.InputTag("centralityBin","HFtowers")
+
+process.schedule = cms.Schedule( process.EventAna_step, process.oniaTreeAna , process.hltBitAna , process.hltObjectAna )
+
+
+
+
+
 #Options:
 process.source = cms.Source("PoolSource",
                             fileNames = cms.untracked.vstring( options.inputFiles ),

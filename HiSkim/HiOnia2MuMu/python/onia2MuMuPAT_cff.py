@@ -50,8 +50,10 @@ def onia2MuMuPAT(process, GlobalTag, MC=False, HLT='HLT', Filter=True, useL1Stag
         process.muonMatchHLTL1.useStage2L1 = cms.bool(True)
         process.muonMatchHLTL1.preselection = cms.string("")
 
-    process.patTrigger.collections.append("hltIterL3MuonCandidates") 
-    process.muonMatchHLTL3.matchedCuts = cms.string('coll("hltIterL3MuonCandidates")') 
+    process.patTrigger.collections.append("hltIterL3MuonCandidatesPPOnAA")
+    process.patTrigger.collections.append("hltIterL2MuonCandidatesPPOnAA") 
+    process.muonMatchHLTL3.matchedCuts = cms.string('coll("hltIterL3MuonCandidatesPPOnAA")') 
+    process.muonMatchHLTL2.matchedCuts = cms.string('coll("hltIterL2MuonCandidatesPPOnAA")') 
 
     process.muonL1Info.maxDeltaR = 0.3
     process.muonL1Info.maxDeltaEta   = 0.2
