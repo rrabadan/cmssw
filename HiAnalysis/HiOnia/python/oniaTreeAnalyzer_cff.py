@@ -106,7 +106,7 @@ def oniaTreeAnalyzer(process, muonTriggerList=[[],[],[],[]], HLTProName='HLT', m
                                     #-- Gen Details
                                     oniaPDG = cms.int32(pdgID),
                                     muonSel = cms.string(muonSelection),
-                                    isHI = cms.untracked.bool(False),
+                                    isHI = cms.untracked.bool(True),
                                     isPA = cms.untracked.bool(False),
                                     isMC = cms.untracked.bool(isMC),
                                     isPromptMC = cms.untracked.bool(True),
