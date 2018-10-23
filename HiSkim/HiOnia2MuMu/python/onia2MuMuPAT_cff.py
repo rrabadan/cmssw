@@ -51,9 +51,9 @@ def onia2MuMuPAT(process, GlobalTag, MC=False, HLT='HLT', Filter=True, useL1Stag
         process.muonMatchHLTL1.preselection = cms.string("")
 
     process.patTrigger.collections.append("hltIterL3MuonCandidatesPPOnAA")
-    process.patTrigger.collections.append("hltIterL2MuonCandidatesPPOnAA") 
+    process.patTrigger.collections.append("hltL2MuonCandidatesPPOnAA") 
     process.muonMatchHLTL3.matchedCuts = cms.string('coll("hltIterL3MuonCandidatesPPOnAA")') 
-    process.muonMatchHLTL2.matchedCuts = cms.string('coll("hltIterL2MuonCandidatesPPOnAA")') 
+    process.muonMatchHLTL2.matchedCuts = cms.string('coll("hltL2MuonCandidatesPPOnAA")') 
 
     process.muonL1Info.maxDeltaR = 0.3
     process.muonL1Info.maxDeltaEta   = 0.2
@@ -130,7 +130,9 @@ def onia2MuMuPAT(process, GlobalTag, MC=False, HLT='HLT', Filter=True, useL1Stag
             'keep L1GlobalTriggerReadoutRecord_*_*_*',             # For HLT and L1 prescales (cheap) 
             'keep L1GlobalTriggerRecord_*_*_*',                    # For HLT and L1 prescales (cheap)        
             'keep L1GtTriggerMenu_*_*_*',                          # L1 prescales        
-            'keep *_pACentrality_*_*',                             # PA Centrality
+            'keep *_centralityBin_*_*',                             # PA Centrality
+            'keep *_hiCentrality_*_*',                             # PA Centrality
+            #'keep *_pACentrality_*_*',                             # PA Centrality
             ),
         SelectEvents = cms.untracked.PSet( SelectEvents = cms.vstring('Onia2MuMuPAT') ) if Filter else cms.untracked.PSet()
     )
