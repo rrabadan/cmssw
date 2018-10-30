@@ -132,7 +132,7 @@ def onia2MuMuPAT(process, GlobalTag, MC=False, HLT='HLT', Filter=True, useL1Stag
             'keep L1GtTriggerMenu_*_*_*',                          # L1 prescales        
             'keep *_centralityBin_*_*',                             # PA Centrality
             'keep *_hiCentrality_*_*',                             # PA Centrality
-            #'keep *_pACentrality_*_*',                             # PA Centrality
+            'keep *_pACentrality_*_*',                             # PA Centrality
             ),
         SelectEvents = cms.untracked.PSet( SelectEvents = cms.vstring('Onia2MuMuPAT') ) if Filter else cms.untracked.PSet()
     )
