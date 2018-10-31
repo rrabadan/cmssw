@@ -16,7 +16,6 @@ triggerList    = {
 			"HLT_HIL1DoubleMuOpen_v1", 
 			"HLT_HIL1DoubleMuOpen_OS_Centrality_40_100_v1", 
 			"HLT_HIL1DoubleMuOpen_Centrality_50_100_v1", 
-			"HLT_HIL1DoubleMu0_v1", 
 			"HLT_HIL1DoubleMu10_v1", 
 			"HLT_HIL2_L1DoubleMu10_v1", 
 			"HLT_HIL3_L1DoubleMu10_v1", 
@@ -28,7 +27,7 @@ triggerList    = {
 			"HLT_HIL3Mu0_L2Mu0_v1", 
 			"HLT_HIL3Mu0NHitQ10_L2Mu0_MAXdR3p5_M1to5_v1",
 			"HLT_HIL3Mu2p5NHitQ10_L2Mu2_M7toinf_v1",
-			"HLT_HIL3Mu3_L1TripleMuOpen_v1"
+			"HLT_HIL3Mu3_L1TripleMuOpen_v1",
 ),
 		# Double Muon Filter List
 		'DoubleMuonFilter'  : cms.vstring(
@@ -46,7 +45,7 @@ triggerList    = {
 			"hltL3f0L3Mu0L2Mu0Filtered0",
 			"hltL3f0L3Mu0NHitQ10L2Mu0FilteredM1to5",
 			"hltL3f0L3Mu2p5NHitQ10L2Mu2FilteredM7toinf",
-			"hltL3fL1sL1DoubleMuOpenL1fN3L2f0L3Filtered3"
+			"hltL3fL1sL1DoubleMuOpenL1fN3L2f0L3Filtered3",
 			),
 		# Single Muon Trigger List
 	'SingleMuonTrigger' : cms.vstring(
@@ -96,12 +95,7 @@ options = VarParsing.VarParsing ('analysis')
 # Input and Output File Names
 options.outputFile = "OniaForest.root"
 options.secondaryOutputFile = "Jpsi_DataSet.root"
-options.inputFiles = [
-		#'/store/user/bdiab/SingleMuPt_0_30/SingleMuPt_0_30_CMSSW_10_1_7_RECO/180710_155328/0000/step2_RAW2DIGI_L1Reco_RECO_99.root'
-'/store/group/phys_heavyions/jaebeom/JpsiMM_0_15/ReEmul_HLTMenuV27_JpsiLP_EALB/181017_160030/0000/step3_mc_10.root'
-]
-#options.inputFiles = '/store/user/bdiab/SingleMuPt_0_30/SingleMuPt_0_30_CMSSW_10_1_7_RECO/180710_155328/0000/step2_RAW2DIGI_L1Reco_RECO_99.root'
-#options.inputFiles = '/store/data/Run2018B/DoubleMuon/AOD/PromptReco-v2/000/318/953/00000/6C6B2831-D97E-E811-8643-FA163E56EEC9.root'
+options.inputFiles = ['/store/group/phys_heavyions/jaebeom/JpsiMM_0_15/ReEmul_HLTMenuV35_JpsiLP_EALB/181023_181845/0009/step3_mc_9652.root']
 options.maxEvents = -1 # -1 means all events
 
 # Get and parse the command line arguments
