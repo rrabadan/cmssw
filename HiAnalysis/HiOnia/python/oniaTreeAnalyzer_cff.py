@@ -83,6 +83,12 @@ def oniaTreeAnalyzer(process, muonTriggerList=[[],[],[],[]], HLTProName='HLT', m
                                     
                                     triggerResultsLabel = cms.InputTag("TriggerResults","",HLTProName), # Label of Trigger Results
                                     
+                                    evMaxHF             = cms.InputTag("hfmaxcalotower","maxHFen",   ""),
+                                    evMaxHFN            = cms.InputTag("hfmaxcalotower","maxHFNen",  ""),
+                                    evMaxHFP            = cms.InputTag("hfmaxcalotower","maxHFPen",  ""),
+                                    evMaxHFeta          = cms.InputTag("hfmaxcalotower","maxHFeta",  ""),
+                                    evMaxHFphi          = cms.InputTag("hfmaxcalotower","maxHFphi",  ""),
+                                    
                                     #-- Reco Details
                                     useBeamSpot = cms.bool(False),  
                                     useRapidity = cms.bool(True),

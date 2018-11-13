@@ -10,6 +10,7 @@ hionia = cms.EDAnalyzer('HiOniaAnalyzer',
                         primaryVertexTag = cms.InputTag("hiSelectedVertex"),
                         
                         triggerResultsLabel = cms.InputTag("TriggerResults","","HLT"),
+                        
 
                         CentralitySrc    = cms.InputTag("hiCentrality"),
                         CentralityBinSrc = cms.InputTag("centralityBin","HFtowers"),

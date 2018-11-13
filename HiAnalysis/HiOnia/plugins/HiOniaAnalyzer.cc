@@ -328,6 +328,10 @@ private:
   float rpCos[50];
   float rpSin[50];
 
+  //HF energy towers.
+  float maxCaloTowerHF,    maxCaloTowerHFN,   maxCaloTowerHFP;
+  float maxCaloTowerHFeta, maxCaloTowerHFphi;
+
   // handles
   edm::Handle<pat::CompositeCandidateCollection> collJpsi;
   edm::Handle<pat::MuonCollection> collMuon;
@@ -337,6 +341,9 @@ private:
   edm::Handle<reco::GenParticleCollection> collGenParticles;
 
   edm::Handle<edm::TriggerResults> collTriggerResults;
+  
+  edm::Handle<double> evHandleMaxHF;     edm::Handle<double> evHandleMaxHFN;   edm::Handle<double> evHandleMaxHFP;
+  edm::Handle<double> evHandleMaxHFeta;  edm::Handle<double> evHandleMaxHFphi;
 
   // data members
   edm::EDGetTokenT<pat::MuonCollection>               _patMuonToken;
@@ -349,6 +356,13 @@ private:
   edm::EDGetTokenT<reco::Centrality>                  _centralityTagToken;
   edm::EDGetTokenT<int>                               _centralityBinTagToken;
   edm::EDGetTokenT<reco::EvtPlaneCollection>          _evtPlaneTagToken;
+
+  edm::EDGetTokenT<double>                            _evMaxHFToken;
+  edm::EDGetTokenT<double>                            _evMaxHFNToken;
+  edm::EDGetTokenT<double>                            _evMaxHFPToken;
+  edm::EDGetTokenT<double>                            _evMaxHFetaToken;
+  edm::EDGetTokenT<double>                            _evMaxHFphiToken;
+
   std::string         _histfilename;
   std::string         _datasetname;
   std::string         _muonSel;
@@ -461,6 +475,11 @@ HiOniaAnalyzer::HiOniaAnalyzer(const edm::ParameterSet& iConfig):
   _centralityTagToken(consumes<reco::Centrality>(iConfig.getParameter<edm::InputTag> ("CentralitySrc"))),
   _centralityBinTagToken(consumes<int>(iConfig.getParameter<edm::InputTag> ("CentralityBinSrc"))),
   _evtPlaneTagToken(consumes<reco::EvtPlaneCollection>(iConfig.getParameter<edm::InputTag> ("EvtPlane"))),
+  _evMaxHFToken(consumes<double>(iConfig.getParameter<edm::InputTag>("evMaxHF"))),
+  _evMaxHFNToken(consumes<double>(iConfig.getParameter<edm::InputTag>("evMaxHFN"))),
+  _evMaxHFPToken(consumes<double>(iConfig.getParameter<edm::InputTag>("evMaxHFP"))),
+  _evMaxHFetaToken(consumes<double>(iConfig.getParameter<edm::InputTag>("evMaxHFeta"))),
+  _evMaxHFphiToken(consumes<double>(iConfig.getParameter<edm::InputTag>("evMaxHFphi"))),
   _histfilename(iConfig.getParameter<std::string>("histFileName")),             
   _datasetname(iConfig.getParameter<std::string>("dataSetName")),         
   _muonSel(iConfig.getParameter<std::string>("muonSel")),
@@ -752,7 +771,19 @@ HiOniaAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 
   this->fillRecoHistos(lastSign);
 
-  if (_fillTree)
+  iEvent.getByToken(_evMaxHFToken,    evHandleMaxHF);
+  iEvent.getByToken(_evMaxHFNToken,   evHandleMaxHFN);
+  iEvent.getByToken(_evMaxHFPToken,   evHandleMaxHFP);
+  iEvent.getByToken(_evMaxHFetaToken, evHandleMaxHFeta);
+  iEvent.getByToken(_evMaxHFphiToken, evHandleMaxHFphi);
+  
+  maxCaloTowerHF    = float(*evHandleMaxHF);
+  maxCaloTowerHFN   = float(*evHandleMaxHFN);
+  maxCaloTowerHFP   = float(*evHandleMaxHFP);
+  maxCaloTowerHFeta = float(*evHandleMaxHFeta);
+  maxCaloTowerHFphi = float(*evHandleMaxHFphi);
+
+  if (_fillTree && Reco_QQ_size > 0)
     myTree->Fill();
 
   return;
@@ -1827,6 +1858,12 @@ HiOniaAnalyzer::InitTree()
   myTree->Branch("SumET_ZDC",&SumET_ZDC,"SumET_ZDC/F");
   myTree->Branch("SumET_ZDCplus",&SumET_ZDCplus,"SumET_ZDCplus/F");
   myTree->Branch("SumET_ZDCminus",&SumET_ZDCminus,"SumET_ZDCminus/F");
+  
+  myTree->Branch("maxCaloTowerHF",    &maxCaloTowerHF,    "maxCaloTowerHF/f");
+  myTree->Branch("maxCaloTowerHFN",   &maxCaloTowerHFN,   "maxCaloTowerHFN/f");
+  myTree->Branch("maxCaloTowerHFP",   &maxCaloTowerHFP,   "maxCaloTowerHFP/f");
+  myTree->Branch("maxCaloTowerHFeta", &maxCaloTowerHFeta, "maxCaloTowerHFeta/f");
+  myTree->Branch("maxCaloTowerHFphi", &maxCaloTowerHFphi, "maxCaloTowerHFphi/f");
 
   if ((_isHI || _isPA) && _useEvtPlane) {
     myTree->Branch("nEP", &nEP, "nEP/I");
